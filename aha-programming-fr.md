@@ -6,9 +6,9 @@ DRY (un acronym qui veut dire Don't Repeat Yourself — [«Ne vous répètez pas
 
 > Dans un système, toute connaissance doit avoir une représentation unique, non ambiguë, faisant autorité
 
-C'est une bonne pratique que j'adopter typiquement, bien que je ne la suive pas aussi strictement que cette définition le suggère. Le problème principal que j'ai avec [la duplication de code](https://fr.wikipedia.org/wiki/Duplication_de_code) (qui veut dire copier-coller, l'opposite de DRY) se compose de découvrir un bug, le corriger, puis se rendre compte qu'il faut aussi le corriger dans un autre place.
+C'est une bonne pratique que j'adopte typiquement, bien que je ne la suive pas aussi strictement que cette définition ne le suggère. Le problème principal que j'ai avec [la duplication de code](https://fr.wikipedia.org/wiki/Duplication_de_code) (qui veut dire copier-coller, l'opposé de DRY) consiste à découvrir un bug, le corriger, puis se rendre compte qu'il faut aussi le corriger ailleurs.
 
-Autrefois, j'ai hérité un codebase qui utilisait forcement la duplication de code et j'au dû corriger un bug à huit places differents! Comme c'est irritant! Il aurait **beaucoup** aidé à extraire ce code-là dans une fonction qui pourrait se fait éxecuter n'importe où.
+Autrefois, j'ai hérité d'un codebase qui utilisait forcément la duplication de code et j'au dû corriger un bug à huit places differents! Comme c'est irritant! Il aurait **beaucoup** aidé à extraire ce code dans une fonction qui pourrait se fait exécuter n'importe où.
 
 # WET
 
@@ -16,9 +16,9 @@ Il y a un autre concept que des gens ont appelé la programmation WET, qui veut 
 
 > Vous pouvez se demander «je ne l'ai pas déjà écrit?» deux fois, mais pas trois.
 
-Dans le même codebase que j'ai déjà mentionné il y avait trop d'abstraction, ce qui était encore plus nuisible que la duplication. C'était code pour plusieurs controllers de AngularJS qui passait `this` à une function, et cette function ajoutait des certaines capacités à l'instance du controller en forcant de ses méthodes et ses proprietés. Je devine que c'etait une sorte de faux héritage. C'etait **très** déroutant et difficile à suivre, et j'etais terrifié à l'idée de faire des changements dans cette zone du codebase.
+Dans le même codebase que j'ai déjà mentionné, il y avait trop d'abstraction, ce qui était encore plus nuisible que la duplication. C'était code pour plusieurs controllers AngularJS qui passaient `this` à une function, et cette function ajoutait certaines capacités à l'instance du controller en forçant de ses méthodes et ses proprietés. Je devine que c'était une sorte de faux héritage. C'était **très** déroutant et difficile à suivre, et j'étais terrifié à l'idée de faire des changements dans cette zone du codebase.
 
-Le code était réutilisait dans plus de trois places, mais l'abstraction était mal et j'ai plutôt souhaité que le code soit dupliqué.
+Le code était réutilisé dans plus de trois places, mais l'abstraction était mauvaise et j'aurais préféré que le code soit dupliqué.
 
 # AHA
 
@@ -34,9 +34,8 @@ Je veux que vous relisez cette perle de sagesse, puis lisez le fantastique artic
 
 Voici un autre principe connexe important:
 
-> Optimisez tout d'abord pour le changement 
+> Optimisez tout d'abord pour le changement
 
-Je pense que la clé est que on ne sait pas quel sera l'avenir du code. On pourrait dépasser quelques semaines en optimisant du code pour la performance, ou en créant le meilleur API pour notre nouvelle abstraction, pour découvrir seulement le lendemain que on faisait des suppositions erronées et que l'API a besoin d'une reprise completement, ou que on n'a plus besoin de la fonctionnalité pour laquelle le code a été ecrit. On ne sait pas certainement. On sait seulement que les trucs vont probablement changer, et si ils ne changent jamais, on ne modifiera pas le code donc on s'en fiche de son apparance.
+Je pense que la clé est qu'on ne sait pas quel sera l'avenir du code. On pourrait passer plusieurs semaines en optimisant du code pour la performance, ou en créant le meilleur API pour notre nouvelle abstraction, pour découvrir seulement le lendemain qu'on faisait des suppositions erronées et que l'API a besoin d'une refonte complète, ou que on n'a plus besoin de la fonctionnalité pour laquelle le code a été écrit. On ne sait pas avec certitude. On sait seulement que les trucs vont probablement changer, et s'ils ne changent jamais, on ne modifiera pas le code donc on se fiche de son apparance.
 
-Pour plus de clarté, je ne suggère pas l'anarchie. Je suggère qu'on se souvient qu'on ne connait pas les prérequis qui seront imposeés à notre code à l'avernir.
-
+Pour plus de clarté, je ne suggère pas l'anarchie. Je suggère qu'on se souvienne qu'on ne connait pas les prérequis qui seront imposeés à notre code à l'avenir.
