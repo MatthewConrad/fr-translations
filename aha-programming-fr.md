@@ -39,3 +39,17 @@ Voici un autre principe connexe important:
 Je pense que la clé est qu'on ne sait pas quel sera l'avenir du code. On pourrait passer plusieurs semaines en optimisant du code pour la performance, ou en créant le meilleur API pour notre nouvelle abstraction, pour découvrir seulement le lendemain qu'on faisait des suppositions erronées et que l'API a besoin d'une refonte complète, ou que on n'a plus besoin de la fonctionnalité pour laquelle le code a été écrit. On ne sait pas avec certitude. On sait seulement que les trucs vont probablement changer, et s'ils ne changent jamais, on ne modifiera pas le code donc on se fiche de son apparance.
 
 Pour plus de clarté, je ne suggère pas l'anarchie. Je suggère qu'on se souvienne qu'on ne connait pas les prérequis qui seront imposeés à notre code à l'avenir.
+
+Donc je suis d'accord avec la duplication de code jusqu'à ce que vous vous soyez sûr de connaître le cas d'utilization de ce code dupliqué. Quelles parties du code sont différentes qui seraient des biens arguments pour votre fonction? Après que ce code s'exécute à plusieurs endroits, les points communs vont exiger l'abstraction et vous serez dans le bon état d'esprit pour réaliser cette abstraction.
+
+Si vous faites une abstraction assez tôt, vous penserez que la fonction ou le composant est parfait pour votre cas d'utilization, donc vous forcerez le code à s'adapter à ce cas. Il se répète plusieurs fois jusqu'à ce que l'abstraction soit votre application entière dans des boucles et des déclarations `if`.
+
+Il y a quelques années, j'ai été embauché pour réexaminer le codebase d'une entreprise, et j'ai utilisé un outil nommé [jsinspect](https://github.com/danielstjules/jsinspect) pour identifier des tranches de code dupliqué afin de leur montrer où l'abstraction serait utile. Ils avaient beaucoup de code dupliqué, et de mon point de vue, il était évident à quoi devraient ressembler les abstractions.
+
+**Je pense que le point à retenir** de la «programmation AHA» est qu'il ne faut pas être dogmatique lorsque vous écrivez des abstractions, mais plutôt écrire l'abstraction quand cela vous convient, et n'ayez pas peur de dupliquer le code jusqu'à ce que vous y arriviez.
+
+# Conclusion
+
+Je trouve qu'une approche mesurée et pragmatique des principes de logiciel est importante. C'est pourqoui je préfère `AHA` à `DRY` ou `WET`. Il a l'intention de vous aider à être attentif à vos abstractions sans dicter des règles stricts sur quand il est approprié d'éxtraire une pièce de code dans une fonction ou un module.
+
+J'espere que cela vous sera utile. Si vous vous trouvez embourbé dans de mauvaises abstractions, reprenez courage! Sandi donne de bonnes étapes pour s'en échapper dans son article de blog ([EN 🇺🇸](https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction)). Bonne chance!
