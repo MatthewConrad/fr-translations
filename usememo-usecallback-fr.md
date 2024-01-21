@@ -182,7 +182,7 @@ function Foo({ bar, baz }) {
   const options = { bar, baz };
   React.useEffect(() => {
     buzz(options);
-  }, [options]); // On veut que ceci soit réexécuté si bar ou baz changent
+  }, [options]); // On veut que ceci soit relancé si bar ou baz changent
   return <div>foobar</div>;
 }
 
@@ -201,7 +201,7 @@ function Foo({ bar, baz }) {
   React.useEffect(() => {
     const options = { bar, baz };
     buzz(options);
-  }, [bar, baz]); // On veut que ceci soit réexécuté si bar ou baz changent
+  }, [bar, baz]); // On veut que ceci soit relancé si bar ou baz changent
   return <div>foobar</div>;
 }
 ```
@@ -265,9 +265,9 @@ function DualCounter() {
 }
 ```
 
-Chaque fois que vous cliquez sur l'un ou l'autre de ces boutons l'état de `DualCount` change. Par conséquent `DualCount` re-rend, ce qui à son tour re-rendra les deux `CountButton`s. Pourtant, celui qui est cliqué est le seul qui a besoin de re-rendre, non? Donc si vouz cliquez sur le prémiere, le deuxiéme s'est fait re-rendre, mais rien ne change. On appelle cela un «re-rendu inutile.»
+Chaque fois que vous cliquez sur l'un ou l'autre de ces boutons l'état de `DualCount` change. Par conséquent `DualCount` fait le rendu, ce qui à son tour fera le rendu les deux `CountButton`s. Pourtant, celui qui est cliqué est le seul qui a besoin de faire le rendu, non? Donc si vouz cliquez sur le prémiere, le deuxiéme s'est fait le rendu, mais rien ne change. On appelle cela un «réaffichage inutile.»
 
-_**La plupart du temps vous ne devriez pas vous soucier d'optimizer les rendus inutiles.**_ React est _**très**_ vite et il y a tellement de choses auxquelles je peux penser à faire avec votre temps qui seraient mieux que d'optimiser des choses comme celle-ci. En fait, au cours des trois années où Kent a travaillé chez PayPal, et même pendant tout le temps qu'il a utilisé React, il n'a jamais dû faire de telles optimisations.
+_**La plupart du temps vous ne devriez pas vous soucier d'optimizer les réaffichages inutiles.**_ React est _**très**_ vite et il y a tellement de choses auxquelles je peux penser à faire avec votre temps qui seraient mieux que d'optimiser des choses comme celle-ci. En fait, au cours des trois années où Kent a travaillé chez PayPal, et même pendant tout le temps qu'il a utilisé React, il n'a jamais dû faire de telles optimisations.
 
 Neanmoins, il existe des situations dans lesquelles le rendu peut prendre beaucoup de temps, comme des graphiques et animations très intéractives. Grace au caractère pragmatique de React il y a un issue de secours:
 
@@ -277,7 +277,7 @@ const CountButton = React.memo(function CountButton({ onClick, count }) {
 });
 ```
 
-Désormais, React re-rendra `CountButton` seulement si ses props changent. Super! Mais on a encore beaucoup à faire. Rappelez-vous de l'égalité référentielle? Dans les fonctions du composant `DualCounter`, on définit les fonctions `increment1` et `increment2`, donc chaque fois `DualCounter` se fait re-rendre ces fonctions-là seront nouvelles et React re-rendra de toute façon les deux `CountButton`s.
+Désormais, React fera le rendu `CountButton` seulement si ses props changent. Super! Mais on a encore beaucoup à faire. Rappelez-vous de l'égalité référentielle? Dans les fonctions du composant `DualCounter`, on définit les fonctions `increment1` et `increment2`, donc chaque fois `DualCounter` se fait le rendu ces fonctions-là seront nouvelles et React fera le rendu de toute façon les deux `CountButton`s.
 
 C'est l'autre situation dans laquelle `useCallback` et `useMemo` peuvent être utiles:
 
@@ -302,7 +302,7 @@ function DualCounter() {
 }
 ```
 
-Désormais, on peut esquiver les rendus inutiles de `CountButton`.
+Désormais, on peut esquiver les réaffichages inutiles de `CountButton`.
 
 Je voudrais répéter que je conseille fortement de ne pas utiliser sans évaluer `React.memo` (et ses amis `PureComponent` et `shouldComponentUpdate`). Ces optimisations-là ont un coût et vous devez connaître à la fois leurs coûts et leurs avantages pour déterminer si elles valent la peine dans votre cas. Comme on l'a observé précédemment, il peut être difficile de réussir à tout moment, donc vous pourriez ne recevoir aucune prestation.
 
